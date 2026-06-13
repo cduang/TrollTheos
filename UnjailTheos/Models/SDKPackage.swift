@@ -4,27 +4,24 @@ import Foundation
 struct SDKSource: Identifiable, Hashable {
     let id: String
     let name: String
-    let url: URL
-    let filename: String
+    /// theos/sdks 仓库中的 SDK 目录名
+    let sdkFolderName: String
 
     static let predefined: [SDKSource] = [
         SDKSource(
             id: "iphoneos16.5",
             name: "iPhoneOS 16.5",
-            url: URL(string: "https://github.com/theos/sdks/raw/master/iPhoneOS16.5.sdk.tar.xz")!,
-            filename: "iPhoneOS16.5.sdk.tar.xz"
+            sdkFolderName: "iPhoneOS16.5.sdk"
         ),
         SDKSource(
             id: "iphoneos15.6",
             name: "iPhoneOS 15.6",
-            url: URL(string: "https://github.com/theos/sdks/raw/master/iPhoneOS15.6.sdk.tar.xz")!,
-            filename: "iPhoneOS15.6.sdk.tar.xz"
+            sdkFolderName: "iPhoneOS15.6.sdk"
         ),
         SDKSource(
             id: "iphoneos14.5",
             name: "iPhoneOS 14.5",
-            url: URL(string: "https://github.com/theos/sdks/raw/master/iPhoneOS14.5.sdk.tar.xz")!,
-            filename: "iPhoneOS14.5.sdk.tar.xz"
+            sdkFolderName: "iPhoneOS14.5.sdk"
         )
     ]
 }
@@ -41,6 +38,7 @@ struct InstalledSDK: Identifiable, Hashable {
 struct DownloadProgress {
     var bytesReceived: Int64 = 0
     var totalBytes: Int64 = 0
+    var phase: String = ""
 
     var fraction: Double {
         guard totalBytes > 0 else { return 0 }
@@ -48,8 +46,11 @@ struct DownloadProgress {
     }
 
     var formattedProgress: String {
-        let received = ByteCountFormatter.string(fromByteCount: bytesReceived, countStyle: .file)
-        let total = ByteCountFormatter.string(fromByteCount: totalBytes, countStyle: .file)
-        return "\(received) / \(total)"
+        if totalBytes > 0 {
+            let received = ByteCountFormatter.string(fromByteCount: bytesReceived, countStyle: .file)
+            let total = ByteCountFormatter.string(fromByteCount: totalBytes, countStyle: .file)
+            return "\(received) / \(total)"
+        }
+        return phase.isEmpty ? "进行中..." : phase
     }
 }

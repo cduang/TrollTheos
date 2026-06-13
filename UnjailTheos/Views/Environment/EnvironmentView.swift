@@ -128,14 +128,14 @@ struct EnvironmentView: View {
                     VStack(alignment: .leading) {
                         Text(source.name)
                             .font(.headline)
-                        Text(source.filename)
+                        Text(source.sdkFolderName)
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
                     Spacer()
-                    if sdkManager.downloader.isDownloading {
-                        ProgressView(value: sdkManager.downloader.progress.fraction)
-                            .frame(width: 60)
+                    if sdkManager.isProcessing {
+                        ProgressView()
+                            .frame(width: 24)
                     } else {
                         Button("下载") {
                             Task { await sdkManager.downloadAndExtract(source: source) }
@@ -145,11 +145,11 @@ struct EnvironmentView: View {
                 }
             }
 
-            if sdkManager.downloader.isDownloading {
-                ProgressView(value: sdkManager.downloader.progress.fraction) {
-                    Text("下载进度")
+            if sdkManager.isProcessing && !sdkManager.downloadProgress.phase.isEmpty {
+                ProgressView {
+                    Text("SDK 拉取")
                 } currentValueLabel: {
-                    Text(sdkManager.downloader.progress.formattedProgress)
+                    Text(sdkManager.downloadProgress.formattedProgress)
                 }
             }
         }

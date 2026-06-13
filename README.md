@@ -109,7 +109,7 @@ GitHub Actions (macos-latest) 编译
 
 `.github/workflows/build.yml` 会自动：
 
-1. 在 `macos-latest` 克隆 Theos 并下载 `iPhoneOS14.5.sdk`
+1. 在 `macos-latest` 克隆 Theos，并通过 git sparse-checkout 拉取 `iPhoneOS14.5.sdk`
 2. 读取 Tweak 项目 `Makefile` 中的 `ARCHS` 字段
 3. 分别编译：
    - `arm64` → `THEOS_PACKAGE_SCHEME=deb`（传统越狱）
@@ -136,7 +136,7 @@ TARGET = iphone:clang:14.5:14.5
 
 可在 **环境** Tab 或 **云端构建** Tab 关闭加速模式。
 
-实现位置：`NetworkConfig.swift` → `TheosInstaller.swift` / `SDKDownloader.swift`
+实现位置：`NetworkConfig.swift` → `TheosInstaller.swift` / `SDKGitFetcher.swift`
 
 ---
 

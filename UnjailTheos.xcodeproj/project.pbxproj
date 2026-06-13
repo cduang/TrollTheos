@@ -13,7 +13,7 @@
 		A10000010000000000000004 /* SDKPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000004 /* SDKPackage.swift */; };
 		A10000010000000000000005 /* ProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000005 /* ProjectFile.swift */; };
 		A10000010000000000000006 /* BuildLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000006 /* BuildLog.swift */; };
-		A10000010000000000000007 /* SDKDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000007 /* SDKDownloader.swift */; };
+		A10000010000000000000007 /* SDKGitFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000025 /* SDKGitFetcher.swift */; };
 		A10000010000000000000008 /* SDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000008 /* SDKManager.swift */; };
 		A10000010000000000000009 /* ArchiveExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000009 /* ArchiveExtractor.swift */; };
 		A10000010000000000000010 /* RootHelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000010 /* RootHelperClient.swift */; };
@@ -55,7 +55,7 @@
 		A20000010000000000000004 /* SDKPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKPackage.swift; sourceTree = "<group>"; };
 		A20000010000000000000005 /* ProjectFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFile.swift; sourceTree = "<group>"; };
 		A20000010000000000000006 /* BuildLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLog.swift; sourceTree = "<group>"; };
-		A20000010000000000000007 /* SDKDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKDownloader.swift; sourceTree = "<group>"; };
+		A20000010000000000000025 /* SDKGitFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKGitFetcher.swift; sourceTree = "<group>"; };
 		A20000010000000000000008 /* SDKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKManager.swift; sourceTree = "<group>"; };
 		A20000010000000000000009 /* ArchiveExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveExtractor.swift; sourceTree = "<group>"; };
 		A20000010000000000000010 /* RootHelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHelperClient.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		A50000010000000000000007 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A20000010000000000000007 /* SDKDownloader.swift */,
+				A20000010000000000000025 /* SDKGitFetcher.swift */,
 				A20000010000000000000008 /* SDKManager.swift */,
 				A20000010000000000000009 /* ArchiveExtractor.swift */,
 				A20000010000000000000010 /* RootHelperClient.swift */,
@@ -344,7 +344,7 @@
 				A10000010000000000000004 /* SDKPackage.swift in Sources */,
 				A10000010000000000000005 /* ProjectFile.swift in Sources */,
 				A10000010000000000000006 /* BuildLog.swift in Sources */,
-				A10000010000000000000007 /* SDKDownloader.swift in Sources */,
+				A10000010000000000000007 /* SDKGitFetcher.swift in Sources */,
 				A10000010000000000000008 /* SDKManager.swift in Sources */,
 				A10000010000000000000009 /* ArchiveExtractor.swift in Sources */,
 				A10000010000000000000010 /* RootHelperClient.swift in Sources */,

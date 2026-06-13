@@ -58,8 +58,10 @@ final class GitManager: ObservableObject {
           - uses: actions/checkout@v4
           - run: |
               git clone --recursive --depth 1 https://github.com/theos/theos.git $HOME/theos
-              curl -fsSL -o /tmp/sdk.tar.xz https://github.com/theos/sdks/raw/master/iPhoneOS14.5.sdk.tar.xz
-              tar -xJf /tmp/sdk.tar.xz -C $HOME/theos/sdks
+              mkdir -p $HOME/theos/sdks
+              git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git /tmp/theos-sdks
+              cd /tmp/theos-sdks && git sparse-checkout set iPhoneOS14.5.sdk
+              cp -a iPhoneOS14.5.sdk $HOME/theos/sdks/
               export THEOS=$HOME/theos PATH="$HOME/theos/bin:$PATH"
               make package ARCHS=arm64 || true
               make package ARCHS=arm64e THEOS_PACKAGE_SCHEME=rootless || true

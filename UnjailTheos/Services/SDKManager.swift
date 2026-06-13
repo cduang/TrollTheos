@@ -1,14 +1,15 @@
 import Foundation
 import UniformTypeIdentifiers
 
-/// SDK 统一管理：下载、手动导入、列表扫描
+/// SDK 统一管理：git 拉取、手动导入、列表扫描
 @MainActor
 final class SDKManager: ObservableObject {
     @Published var installedSDKs: [InstalledSDK] = []
     @Published var statusMessage: String?
     @Published var isProcessing = false
+    @Published var downloadProgress = DownloadProgress()
 
-    let downloader = SDKDownloader()
+    private let gitFetcher = SDKGitFetcher()
     private let extractor = ArchiveExtractor()
 
     init() {
@@ -40,16 +41,28 @@ final class SDKManager: ObservableObject {
             .sorted { $0.name < $1.name }
     }
 
-    /// 下载并自动解压 SDK
+    /// 通过 git sparse-checkout 下载 SDK
     func downloadAndExtract(source: SDKSource) async {
         isProcessing = true
-        statusMessage = "正在下载 \(source.name)..."
-        defer { isProcessing = false }
+        statusMessage = "正在拉取 \(source.name)..."
+        downloadProgress = DownloadProgress(phase: "准备中...")
+        defer {
+            isProcessing = false
+            downloadProgress = DownloadProgress()
+        }
 
         do {
-            let archiveURL = try await downloader.download(source: source)
-            statusMessage = "正在解压 \(source.name)..."
-            try await extractor.extract(archiveURL: archiveURL, destination: TheosPaths.sdksDirectory)
+            if NetworkConfig.isProxyEnabled {
+                statusMessage = "正在拉取 \(source.name)（gh-proxy 加速）..."
+            }
+
+            try await gitFetcher.fetchSDK(folderName: source.sdkFolderName) { [weak self] phase in
+                Task { @MainActor in
+                    self?.downloadProgress.phase = phase
+                    self?.statusMessage = "正在拉取 \(source.name)... \(phase)"
+                }
+            }
+
             refreshInstalledSDKs()
             statusMessage = "\(source.name) 安装完成"
         } catch {
