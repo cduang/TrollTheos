@@ -1,0 +1,118 @@
+name: Build Tweak
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+env:
+  THEOS: ${{ github.workspace }}/theos
+  SDK_VERSION: "14.5"
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Setup Theos toolchain
+        run: |
+          set -euo pipefail
+          git clone --recursive --depth 1 \
+            https://github.com/theos/theos.git "$THEOS"
+          mkdir -p "$THEOS/sdks"
+          curl -fsSL -o /tmp/iPhoneOS14.5.sdk.tar.xz \
+            "https://github.com/theos/sdks/raw/master/iPhoneOS14.5.sdk.tar.xz"
+          tar -xJf /tmp/iPhoneOS14.5.sdk.tar.xz -C "$THEOS/sdks"
+          echo "$THEOS/bin" >> "$GITHUB_PATH"
+          echo "THEOS=$THEOS" >> "$GITHUB_ENV"
+          ls -la "$THEOS/sdks"
+
+      - name: Detect architectures from Makefile
+        id: arch
+        run: |
+          set -euo pipefail
+          BUILD_ARM64=true
+          BUILD_ARM64E=true
+
+          if [ -f "Makefile" ]; then
+            ARCHS_VAL=$(grep -E '^ARCHS\s*[:?]?=' Makefile | head -1 | sed 's/^ARCHS\s*[:?]*=\s*//' || true)
+            if [ -n "$ARCHS_VAL" ]; then
+              echo "检测到 ARCHS=$ARCHS_VAL"
+              BUILD_ARM64=false
+              BUILD_ARM64E=false
+              echo "$ARCHS_VAL" | grep -qw "arm64" && BUILD_ARM64=true
+              echo "$ARCHS_VAL" | grep -qw "arm64e" && BUILD_ARM64E=true
+            fi
+          else
+            echo "未找到 Makefile，使用默认双架构"
+          fi
+
+          echo "build_arm64=$BUILD_ARM64" >> "$GITHUB_OUTPUT"
+          echo "build_arm64e=$BUILD_ARM64E" >> "$GITHUB_OUTPUT"
+
+      - name: Build iphoneos-arm64 (传统越狱)
+        if: steps.arch.outputs.build_arm64 == 'true'
+        run: |
+          set -euo pipefail
+          export THEOS="$THEOS"
+          export PATH="$THEOS/bin:$PATH"
+          make clean 2>/dev/null || true
+          make package ARCHS=arm64 TARGET=iphone:clang:${SDK_VERSION}:${SDK_VERSION} \
+            THEOS_PACKAGE_SCHEME=deb
+          mkdir -p dist
+          find . -path "*/packages/*.deb" -exec cp -v {} dist/ \;
+
+      - name: Build iphoneos-arm64e (Rootless / 巨魔)
+        if: steps.arch.outputs.build_arm64e == 'true'
+        run: |
+          set -euo pipefail
+          export THEOS="$THEOS"
+          export PATH="$THEOS/bin:$PATH"
+          make clean 2>/dev/null || true
+          make package ARCHS=arm64e TARGET=iphone:clang:${SDK_VERSION}:${SDK_VERSION} \
+            THEOS_PACKAGE_SCHEME=rootless DEB_ARCH=iphoneos-arm64e
+          mkdir -p dist
+          find . -path "*/packages/*.deb" -exec cp -v {} dist/ \;
+
+      - name: Verify packages
+        run: |
+          set -euo pipefail
+          if [ ! -d dist ] || [ -z "$(ls -A dist/*.deb 2>/dev/null)" ]; then
+            echo "错误: 未生成任何 .deb 包"
+            exit 1
+          fi
+          ls -lh dist/*.deb
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tweak-packages-${{ github.run_number }}
+          path: dist/*.deb
+          if-no-files-found: error
+
+      - name: Create timestamped Release
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}-${{ github.run_attempt }}-${{ github.run_id }}
+          name: "UnjailTheos Build $(date +%Y-%m-%d_%H-%M-%S)"
+          body: |
+            自动云端编译产物。
+
+            - Run: #${{ github.run_number }} (attempt ${{ github.run_attempt }})
+            - Commit: ${{ github.sha }}
+            - 架构: arm64=${{ steps.arch.outputs.build_arm64 }}, arm64e=${{ steps.arch.outputs.build_arm64e }}
+            - 触发: ${{ github.event_name }}
+          files: dist/*.deb
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

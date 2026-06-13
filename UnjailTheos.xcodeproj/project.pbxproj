@@ -1,0 +1,525 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000010000000000000001 /* UnjailTheosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000001 /* UnjailTheosApp.swift */; };
+		A10000010000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000002 /* ContentView.swift */; };
+		A10000010000000000000003 /* TheosPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000003 /* TheosPaths.swift */; };
+		A10000010000000000000004 /* SDKPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000004 /* SDKPackage.swift */; };
+		A10000010000000000000005 /* ProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000005 /* ProjectFile.swift */; };
+		A10000010000000000000006 /* BuildLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000006 /* BuildLog.swift */; };
+		A10000010000000000000007 /* SDKDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000007 /* SDKDownloader.swift */; };
+		A10000010000000000000008 /* SDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000008 /* SDKManager.swift */; };
+		A10000010000000000000009 /* ArchiveExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000009 /* ArchiveExtractor.swift */; };
+		A10000010000000000000010 /* RootHelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000010 /* RootHelperClient.swift */; };
+		A10000010000000000000011 /* BuildExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000011 /* BuildExecutor.swift */; };
+		A10000010000000000000012 /* FileTreeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000012 /* FileTreeManager.swift */; };
+		A10000010000000000000013 /* GitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000013 /* GitManager.swift */; };
+		A10000010000000000000014 /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000014 /* SyntaxHighlighter.swift */; };
+		A10000010000000000000015 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000015 /* CodeEditorView.swift */; };
+		A10000010000000000000016 /* FileTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000016 /* FileTreeView.swift */; };
+		A10000010000000000000017 /* EnvironmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000017 /* EnvironmentView.swift */; };
+		A10000010000000000000018 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000018 /* EditorView.swift */; };
+		A10000010000000000000019 /* BuildConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000019 /* BuildConsoleView.swift */; };
+		A10000010000000000000020 /* GitHubBuildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000020 /* GitHubBuildView.swift */; };
+		A10000010000000000000021 /* roothelper in Copy Files */ = {isa = PBXBuildFile; fileRef = A20000020000000000000001 /* roothelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A10000010000000000000022 /* PathSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000021 /* PathSafety.swift */; };
+		A10000010000000000000023 /* TheosInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000022 /* TheosInstaller.swift */; };
+		A10000010000000000000024 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000023 /* NetworkConfig.swift */; };
+		A10000010000000000000025 /* build.yml in Resources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000024 /* build.yml */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A30000010000000000000001 /* Copy Helper */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 0;
+			files = (
+				A10000010000000000000021 /* roothelper in Copy Files */,
+			);
+			name = "Copy Helper";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A20000010000000000000001 /* UnjailTheosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnjailTheosApp.swift; sourceTree = "<group>"; };
+		A20000010000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A20000010000000000000003 /* TheosPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheosPaths.swift; sourceTree = "<group>"; };
+		A20000010000000000000004 /* SDKPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKPackage.swift; sourceTree = "<group>"; };
+		A20000010000000000000005 /* ProjectFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFile.swift; sourceTree = "<group>"; };
+		A20000010000000000000006 /* BuildLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLog.swift; sourceTree = "<group>"; };
+		A20000010000000000000007 /* SDKDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKDownloader.swift; sourceTree = "<group>"; };
+		A20000010000000000000008 /* SDKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKManager.swift; sourceTree = "<group>"; };
+		A20000010000000000000009 /* ArchiveExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveExtractor.swift; sourceTree = "<group>"; };
+		A20000010000000000000010 /* RootHelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHelperClient.swift; sourceTree = "<group>"; };
+		A20000010000000000000011 /* BuildExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildExecutor.swift; sourceTree = "<group>"; };
+		A20000010000000000000012 /* FileTreeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTreeManager.swift; sourceTree = "<group>"; };
+		A20000010000000000000013 /* GitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitManager.swift; sourceTree = "<group>"; };
+		A20000010000000000000014 /* SyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxHighlighter.swift; sourceTree = "<group>"; };
+		A20000010000000000000015 /* CodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditorView.swift; sourceTree = "<group>"; };
+		A20000010000000000000016 /* FileTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTreeView.swift; sourceTree = "<group>"; };
+		A20000010000000000000017 /* EnvironmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentView.swift; sourceTree = "<group>"; };
+		A20000010000000000000018 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		A20000010000000000000019 /* BuildConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildConsoleView.swift; sourceTree = "<group>"; };
+		A20000010000000000000020 /* GitHubBuildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubBuildView.swift; sourceTree = "<group>"; };
+		A20000010000000000000021 /* PathSafety.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathSafety.swift; sourceTree = "<group>"; };
+		A20000010000000000000022 /* TheosInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheosInstaller.swift; sourceTree = "<group>"; };
+		A20000010000000000000023 /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
+		A20000010000000000000024 /* build.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = build.yml; sourceTree = "<group>"; };
+		A20000010000000000000099 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000010000000000000100 /* UnjailTheos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnjailTheos.entitlements; sourceTree = "<group>"; };
+		A20000020000000000000001 /* roothelper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = roothelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000030000000000000001 /* UnjailTheos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnjailTheos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A40000010000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A50000010000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A50000010000000000000002 /* UnjailTheos */,
+				A50000010000000000000003 /* RootHelper */,
+				A50000010000000000000004 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A50000010000000000000002 /* UnjailTheos */ = {
+			isa = PBXGroup;
+			children = (
+				A50000010000000000000005 /* App */,
+				A50000010000000000000006 /* Models */,
+				A50000010000000000000007 /* Services */,
+				A50000010000000000000008 /* Views */,
+				A50000010000000000000009 /* Utilities */,
+				A50000010000000000000014 /* Resources */,
+				A20000010000000000000099 /* Info.plist */,
+				A20000010000000000000100 /* UnjailTheos.entitlements */,
+			);
+			path = UnjailTheos;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000003 /* RootHelper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RootHelper;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A20000030000000000000001 /* UnjailTheos.app */,
+				A20000020000000000000001 /* roothelper */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000005 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000001 /* UnjailTheosApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000006 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000004 /* SDKPackage.swift */,
+				A20000010000000000000005 /* ProjectFile.swift */,
+				A20000010000000000000006 /* BuildLog.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000007 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000007 /* SDKDownloader.swift */,
+				A20000010000000000000008 /* SDKManager.swift */,
+				A20000010000000000000009 /* ArchiveExtractor.swift */,
+				A20000010000000000000010 /* RootHelperClient.swift */,
+				A20000010000000000000011 /* BuildExecutor.swift */,
+				A20000010000000000000012 /* FileTreeManager.swift */,
+				A20000010000000000000013 /* GitManager.swift */,
+				A20000010000000000000022 /* TheosInstaller.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000008 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000002 /* ContentView.swift */,
+				A50000010000000000000010 /* Environment */,
+				A50000010000000000000011 /* Editor */,
+				A50000010000000000000012 /* Build */,
+				A50000010000000000000013 /* GitHub */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000009 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000003 /* TheosPaths.swift */,
+				A20000010000000000000014 /* SyntaxHighlighter.swift */,
+				A20000010000000000000021 /* PathSafety.swift */,
+				A20000010000000000000023 /* NetworkConfig.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000014 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000024 /* build.yml */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000010 /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000017 /* EnvironmentView.swift */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000011 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000015 /* CodeEditorView.swift */,
+				A20000010000000000000016 /* FileTreeView.swift */,
+				A20000010000000000000018 /* EditorView.swift */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000012 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000019 /* BuildConsoleView.swift */,
+			);
+			path = Build;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000013 /* GitHub */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000020 /* GitHubBuildView.swift */,
+			);
+			path = GitHub;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A60000010000000000000001 /* UnjailTheos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000010000000000000001 /* Build configuration list for PBXNativeTarget "UnjailTheos" */;
+			buildPhases = (
+				A70000010000000000000001 /* Sources */,
+				A40000010000000000000001 /* Frameworks */,
+				A70000010000000000000002 /* Resources */,
+				A30000010000000000000001 /* Copy Helper */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A60000020000000000000001 /* PBXTargetDependency */,
+			);
+			name = UnjailTheos;
+			productName = UnjailTheos;
+			productReference = A20000030000000000000001 /* UnjailTheos.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A60000010000000000000002 /* RootHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000010000000000000002 /* Build configuration list for PBXNativeTarget "RootHelper" */;
+			buildPhases = (
+				A70000010000000000000003 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RootHelper;
+			productName = RootHelper;
+			productReference = A20000020000000000000001 /* roothelper */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A90000010000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A60000010000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					A60000010000000000000002 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = A80000010000000000000003 /* Build configuration list for PBXProject "UnjailTheos" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = A50000010000000000000001;
+			productRefGroup = A50000010000000000000004 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A60000010000000000000001 /* UnjailTheos */,
+				A60000010000000000000002 /* RootHelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A70000010000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000025 /* build.yml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A70000010000000000000003 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/RootHelper/main.swift",
+			);
+			name = "Compile RootHelper";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/roothelper",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcrun --sdk iphoneos swiftc -parse-as-library -o \"${BUILT_PRODUCTS_DIR}/roothelper\" \"${SRCROOT}/RootHelper/main.swift\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A70000010000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000001 /* UnjailTheosApp.swift in Sources */,
+				A10000010000000000000002 /* ContentView.swift in Sources */,
+				A10000010000000000000003 /* TheosPaths.swift in Sources */,
+				A10000010000000000000004 /* SDKPackage.swift in Sources */,
+				A10000010000000000000005 /* ProjectFile.swift in Sources */,
+				A10000010000000000000006 /* BuildLog.swift in Sources */,
+				A10000010000000000000007 /* SDKDownloader.swift in Sources */,
+				A10000010000000000000008 /* SDKManager.swift in Sources */,
+				A10000010000000000000009 /* ArchiveExtractor.swift in Sources */,
+				A10000010000000000000010 /* RootHelperClient.swift in Sources */,
+				A10000010000000000000011 /* BuildExecutor.swift in Sources */,
+				A10000010000000000000012 /* FileTreeManager.swift in Sources */,
+				A10000010000000000000013 /* GitManager.swift in Sources */,
+				A10000010000000000000014 /* SyntaxHighlighter.swift in Sources */,
+				A10000010000000000000015 /* CodeEditorView.swift in Sources */,
+				A10000010000000000000016 /* FileTreeView.swift in Sources */,
+				A10000010000000000000017 /* EnvironmentView.swift in Sources */,
+				A10000010000000000000018 /* EditorView.swift in Sources */,
+				A10000010000000000000019 /* BuildConsoleView.swift in Sources */,
+				A10000010000000000000020 /* GitHubBuildView.swift in Sources */,
+				A10000010000000000000022 /* PathSafety.swift in Sources */,
+				A10000010000000000000023 /* TheosInstaller.swift in Sources */,
+				A10000010000000000000024 /* NetworkConfig.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A60000020000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A60000010000000000000002 /* RootHelper */;
+			targetProxy = A60000030000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXContainerItemProxy section */
+		A60000030000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A90000010000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A60000010000000000000002;
+			remoteInfo = RootHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin XCBuildConfiguration section */
+		AA0000010000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AA0000010000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA0000010000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = UnjailTheos/UnjailTheos.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = UnjailTheos/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.unjailtheos.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA0000010000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = UnjailTheos/UnjailTheos.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = UnjailTheos/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.unjailtheos.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AA0000010000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RootHelper/RootHelper.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				PRODUCT_NAME = roothelper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AA0000010000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RootHelper/RootHelper.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				PRODUCT_NAME = roothelper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A80000010000000000000001 /* Build configuration list for PBXNativeTarget "UnjailTheos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000010000000000000003 /* Debug */,
+				AA0000010000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000010000000000000002 /* Build configuration list for PBXNativeTarget "RootHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000010000000000000005 /* Debug */,
+				AA0000010000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000010000000000000003 /* Build configuration list for PBXProject "UnjailTheos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000010000000000000001 /* Debug */,
+				AA0000010000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A90000010000000000000001 /* Project object */;
+}
