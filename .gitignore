@@ -1,5 +1,6 @@
-# Xcode
-build/
+# Xcode 构建产物（仅根目录）
+/build/
+/dist/
 DerivedData/
 *.xcuserstate
 *.xcuserdatad/

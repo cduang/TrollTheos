@@ -57,7 +57,7 @@ install_ldid() {
   fi
 }
 
-echo "==> ldid 签名（TrollStore entitlements）"
+echo "==> ldid 注入 TrollStore entitlements（非 Apple 证书签名）"
 install_ldid
 ldid -S"$APP_ENTITLEMENTS" "$APP/$PRODUCT"
 if [ -f "$APP/roothelper" ]; then
