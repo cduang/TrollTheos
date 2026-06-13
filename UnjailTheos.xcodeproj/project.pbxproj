@@ -321,7 +321,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/RootHelper/main.swift",
+				"$(SRCROOT)/RootHelper/main.c",
 			);
 			name = "Compile RootHelper";
 			outputPaths = (
@@ -329,7 +329,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcrun --sdk iphoneos swiftc -parse-as-library -o \"${BUILT_PRODUCTS_DIR}/roothelper\" \"${SRCROOT}/RootHelper/main.swift\"\n";
+			shellScript = "set -e\nSDK=\"$(xcrun --sdk iphoneos --show-sdk-path)\"\nxcrun clang -isysroot \"$SDK\" -arch arm64 -miphoneos-version-min=15.0 -o \"${BUILT_PRODUCTS_DIR}/roothelper\" \"${SRCROOT}/RootHelper/main.c\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -471,10 +471,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = RootHelper/RootHelper.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = roothelper;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = iphoneos;
+				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
@@ -482,10 +485,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = RootHelper/RootHelper.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = roothelper;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = iphoneos;
+				VALID_ARCHS = arm64;
 			};
 			name = Release;
 		};
