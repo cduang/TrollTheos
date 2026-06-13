@@ -286,8 +286,11 @@ final class GitManager: ObservableObject {
 
         // 去除 token 部分 https://token@github.com/...
         if let url = URLComponents(string: cleaned), let host = url.host {
-            if host.contains("github.com"), let path = url.path.split(separator: "/").map(String.init), path.count >= 2 {
-                return GitHubRepoIdentity(owner: path[0], repo: path[1])
+            if host.contains("github.com") {
+                let path = url.path.split(separator: "/").map(String.init)
+                if path.count >= 2 {
+                    return GitHubRepoIdentity(owner: path[0], repo: path[1])
+                }
             }
         }
 

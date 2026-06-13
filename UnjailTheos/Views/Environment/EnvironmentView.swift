@@ -146,10 +146,14 @@ struct EnvironmentView: View {
             }
 
             if sdkManager.isProcessing && !sdkManager.downloadProgress.phase.isEmpty {
-                ProgressView {
-                    Text("SDK 拉取")
-                } currentValueLabel: {
-                    Text(sdkManager.downloadProgress.formattedProgress)
+                HStack {
+                    ProgressView()
+                    VStack(alignment: .leading) {
+                        Text("SDK 拉取")
+                        Text(sdkManager.downloadProgress.formattedProgress)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
         }

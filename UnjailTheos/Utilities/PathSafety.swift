@@ -125,7 +125,6 @@ enum PathSafety {
     /// 解析路径并确保 symlink 不会逃逸 allowedRoot
     private static func resolveWithoutSymlinkEscape(_ url: URL) throws -> URL {
         let fm = FileManager.default
-        var current = url.path == "/" ? url : url.deletingLastPathComponent()
         var remaining = url.lastPathComponent
 
         if url.hasDirectoryPath || url.path.hasSuffix("/") {

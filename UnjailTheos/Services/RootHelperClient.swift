@@ -37,7 +37,7 @@ final class StreamLineBuffer {
 ///
 /// 通过 posix_spawn 启动 roothelper（或 /bin/sh 回退），
 /// 使用 Pipe 重定向 stdout/stderr，read(2) 循环实时读取并逐行回调。
-final class RootHelperClient {
+final class RootHelperClient: @unchecked Sendable {
     enum HelperError: LocalizedError {
         case binaryNotFound
         case spawnFailed(Int32)
@@ -158,27 +158,33 @@ final class RootHelperClient {
         defer { envp.forEach { if let p = $0 { free(p) } } }
 
         // posix_spawn_file_actions：重定向 stdout/stderr 到 Pipe 写端
-        var fileActions = posix_spawn_file_actions_t()
-        posix_spawn_file_actions_init(&fileActions)
-        defer { posix_spawn_file_actions_destroy(&fileActions) }
+        let fileActionsPtr = UnsafeMutablePointer<posix_spawn_file_actions_t>.allocate(capacity: 1)
+        defer {
+            posix_spawn_file_actions_destroy(fileActionsPtr)
+            fileActionsPtr.deallocate()
+        }
+        posix_spawn_file_actions_init(fileActionsPtr)
 
-        posix_spawn_file_actions_addclose(&fileActions, stdoutPipe[0])
-        posix_spawn_file_actions_addclose(&fileActions, stderrPipe[0])
-        posix_spawn_file_actions_adddup2(&fileActions, stdoutPipe[1], STDOUT_FILENO)
-        posix_spawn_file_actions_adddup2(&fileActions, stderrPipe[1], STDERR_FILENO)
-        posix_spawn_file_actions_addclose(&fileActions, stdoutPipe[1])
-        posix_spawn_file_actions_addclose(&fileActions, stderrPipe[1])
+        posix_spawn_file_actions_addclose(fileActionsPtr, stdoutPipe[0])
+        posix_spawn_file_actions_addclose(fileActionsPtr, stderrPipe[0])
+        posix_spawn_file_actions_adddup2(fileActionsPtr, stdoutPipe[1], STDOUT_FILENO)
+        posix_spawn_file_actions_adddup2(fileActionsPtr, stderrPipe[1], STDERR_FILENO)
+        posix_spawn_file_actions_addclose(fileActionsPtr, stdoutPipe[1])
+        posix_spawn_file_actions_addclose(fileActionsPtr, stderrPipe[1])
 
         // 关闭 stdin，防止 make 等待输入
         let devNull = open("/dev/null", O_RDONLY)
         if devNull >= 0 {
-            posix_spawn_file_actions_adddup2(&fileActions, devNull, STDIN_FILENO)
-            posix_spawn_file_actions_addclose(&fileActions, devNull)
+            posix_spawn_file_actions_adddup2(fileActionsPtr, devNull, STDIN_FILENO)
+            posix_spawn_file_actions_addclose(fileActionsPtr, devNull)
         }
 
-        var attr = posix_spawnattr_t()
-        posix_spawnattr_init(&attr)
-        defer { posix_spawnattr_destroy(&attr) }
+        let attrPtr = UnsafeMutablePointer<posix_spawnattr_t>.allocate(capacity: 1)
+        defer {
+            posix_spawnattr_destroy(attrPtr)
+            attrPtr.deallocate()
+        }
+        posix_spawnattr_init(attrPtr)
 
         var pid: pid_t = 0
         let spawnResult: Int32 = argv.withUnsafeBufferPointer { argvBuf in
@@ -186,8 +192,8 @@ final class RootHelperClient {
                 posix_spawn(
                     &pid,
                     executable,
-                    &fileActions,
-                    &attr,
+                    fileActionsPtr,
+                    attrPtr,
                     argvBuf.baseAddress,
                     envBuf.baseAddress
                 )
@@ -258,8 +264,16 @@ final class RootHelperClient {
             waitpid(pid, &status, 0)
         }
 
-        let exitCode = WIFEXITED(status) ? WEXITSTATUS(status) : -1
+        let exitCode = Self.decodeExitCode(from: status)
         return HelperResult(exitCode: exitCode, stdout: stdoutRaw, stderr: stderrRaw)
+    }
+
+    /// 解析 waitpid status（Swift 无法直接使用 WIFEXITED/WEXITSTATUS 宏）
+    private static func decodeExitCode(from status: Int32) -> Int32 {
+        if (status & 0x7F) == 0 {
+            return (status >> 8) & 0xFF
+        }
+        return -1
     }
 
     // MARK: - IO Helpers
