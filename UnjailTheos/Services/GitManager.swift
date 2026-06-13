@@ -54,17 +54,22 @@ final class GitManager: ObservableObject {
     jobs:
       build:
         runs-on: macos-latest
+        env:
+          SDK_NAME: iPhoneOS15.6.sdk
+          SDK_VERSION: "15.6"
+          SDK_TARBALL_URL: https://raw.githubusercontent.com/cduang/TrollTheos/main/iPhoneOS15.6.sdk.tar.xz
         steps:
           - uses: actions/checkout@v4
           - run: |
               git clone --recursive --depth 1 https://github.com/theos/theos.git $HOME/theos
               mkdir -p $HOME/theos/sdks
-              git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git /tmp/theos-sdks
-              cd /tmp/theos-sdks && git sparse-checkout set iPhoneOS14.5.sdk
-              cp -a iPhoneOS14.5.sdk $HOME/theos/sdks/
+              curl -fsSL -o /tmp/sdk.tar.xz "$SDK_TARBALL_URL"
+              tar -xJf /tmp/sdk.tar.xz -C $HOME/theos/sdks
+              rm -f /tmp/sdk.tar.xz
               export THEOS=$HOME/theos PATH="$HOME/theos/bin:$PATH"
-              make package ARCHS=arm64 || true
-              make package ARCHS=arm64e THEOS_PACKAGE_SCHEME=rootless || true
+              make package ARCHS=arm64 TARGET=iphone:clang:${SDK_VERSION}:${SDK_VERSION} || true
+              make package ARCHS=arm64e TARGET=iphone:clang:${SDK_VERSION}:${SDK_VERSION} \
+                THEOS_PACKAGE_SCHEME=rootless DEB_ARCH=iphoneos-arm64e || true
           - uses: actions/upload-artifact@v4
             with:
               name: tweak-packages

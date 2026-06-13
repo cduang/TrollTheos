@@ -15,6 +15,7 @@ iOS 本地 Theos 编译器 GUI，面向 TrollStore（巨魔）侧载环境（iOS
 
 ```
 TrollTheos/
+├── iPhoneOS15.6.sdk.tar.xz       # 内置 iOS 15.6 SDK（~15MB，App 与云端构建共用）
 ├── .github/workflows/build.yml   # CI：编译 UnjailTheos.tipa
 ├── Scripts/build-tipa.sh         # 本地/CI 打包 TIPA 脚本
 ├── UnjailTheos.xcodeproj/
@@ -87,6 +88,8 @@ App 默认开启 **GitHub 加速模式**，通过 `https://v4.gh-proxy.org/` 代
 Documents/theos/          ← THEOS 根目录
 Documents/theos/sdks/     ← iPhoneOS SDK
 ```
+
+**iPhoneOS 15.6** 已随 App 内置（`iPhoneOS15.6.sdk.tar.xz`），在 **环境 → SDK 安装** 点「安装」即可，无需 git 拉取。14.5 / 16.5 仍通过 theos/sdks 仓库 sparse-checkout 下载。
 
 ---
 

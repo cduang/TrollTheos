@@ -122,22 +122,28 @@ struct EnvironmentView: View {
     }
 
     private var onlineDownloadSection: some View {
-        Section("在线 SDK 下载") {
+        Section("SDK 安装") {
             ForEach(SDKSource.predefined) { source in
                 HStack {
                     VStack(alignment: .leading) {
                         Text(source.name)
                             .font(.headline)
-                        Text(source.sdkFolderName)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                        if source.isBundled {
+                            Text("内置包 · \(source.sdkFolderName)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        } else {
+                            Text("git · \(source.sdkFolderName)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     Spacer()
                     if sdkManager.isProcessing {
                         ProgressView()
                             .frame(width: 24)
                     } else {
-                        Button("下载") {
+                        Button(source.isBundled ? "安装" : "下载") {
                             Task { await sdkManager.downloadAndExtract(source: source) }
                         }
                         .disabled(sdkManager.isProcessing || theosInstaller.state == .installing)

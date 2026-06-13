@@ -32,6 +32,7 @@
 		A10000010000000000000023 /* TheosInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000022 /* TheosInstaller.swift */; };
 		A10000010000000000000024 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000023 /* NetworkConfig.swift */; };
 		A10000010000000000000025 /* build.yml in Resources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000024 /* build.yml */; };
+		A10000010000000000000026 /* iPhoneOS15.6.sdk.tar.xz in Resources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000026 /* iPhoneOS15.6.sdk.tar.xz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +74,7 @@
 		A20000010000000000000022 /* TheosInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheosInstaller.swift; sourceTree = "<group>"; };
 		A20000010000000000000023 /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
 		A20000010000000000000024 /* build.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = build.yml; sourceTree = "<group>"; };
+		A20000010000000000000026 /* iPhoneOS15.6.sdk.tar.xz */ = {isa = PBXFileReference; lastKnownFileType = archive.xz; path = iPhoneOS15.6.sdk.tar.xz; sourceTree = SOURCE_ROOT; };
 		A20000010000000000000099 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000010000000000000100 /* UnjailTheos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnjailTheos.entitlements; sourceTree = "<group>"; };
 		A20000020000000000000001 /* roothelper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = roothelper; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				A20000010000000000000024 /* build.yml */,
+				A20000010000000000000026 /* iPhoneOS15.6.sdk.tar.xz */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10000010000000000000025 /* build.yml in Resources */,
+				A10000010000000000000026 /* iPhoneOS15.6.sdk.tar.xz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

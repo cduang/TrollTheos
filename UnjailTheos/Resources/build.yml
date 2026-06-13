@@ -11,8 +11,9 @@ permissions:
 
 env:
   THEOS: ${{ github.workspace }}/theos
-  SDK_NAME: iPhoneOS14.5.sdk
-  SDK_VERSION: "14.5"
+  SDK_NAME: iPhoneOS15.6.sdk
+  SDK_VERSION: "15.6"
+  SDK_TARBALL_URL: https://raw.githubusercontent.com/cduang/TrollTheos/main/iPhoneOS15.6.sdk.tar.xz
 
 jobs:
   validate-theos-environment:
@@ -29,9 +30,9 @@ jobs:
           set -euo pipefail
           git clone --recursive --depth 1 https://github.com/theos/theos.git "$THEOS"
           mkdir -p "$THEOS/sdks"
-          git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git /tmp/theos-sdks
-          cd /tmp/theos-sdks && git sparse-checkout set "$SDK_NAME"
-          cp -a "$SDK_NAME" "$THEOS/sdks/" && rm -rf /tmp/theos-sdks
+          curl -fsSL -o /tmp/sdk.tar.xz "$SDK_TARBALL_URL"
+          tar -xJf /tmp/sdk.tar.xz -C "$THEOS/sdks"
+          rm -f /tmp/sdk.tar.xz
           echo "$THEOS/bin" >> "$GITHUB_PATH"
 
       - name: Verify Theos installation
@@ -62,9 +63,9 @@ jobs:
           set -euo pipefail
           git clone --recursive --depth 1 https://github.com/theos/theos.git "$THEOS"
           mkdir -p "$THEOS/sdks"
-          git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git /tmp/theos-sdks
-          cd /tmp/theos-sdks && git sparse-checkout set "$SDK_NAME"
-          cp -a "$SDK_NAME" "$THEOS/sdks/" && rm -rf /tmp/theos-sdks
+          curl -fsSL -o /tmp/sdk.tar.xz "$SDK_TARBALL_URL"
+          tar -xJf /tmp/sdk.tar.xz -C "$THEOS/sdks"
+          rm -f /tmp/sdk.tar.xz
           echo "$THEOS/bin" >> "$GITHUB_PATH"
           echo "THEOS=$THEOS" >> "$GITHUB_ENV"
 
