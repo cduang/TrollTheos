@@ -1,4 +1,4 @@
-name: Build Tweak
+name: Build TrollTheos TIPA
 
 on:
   push:
@@ -9,127 +9,49 @@ permissions:
   contents: write
   actions: read
 
-env:
-  THEOS: ${{ github.workspace }}/theos
-  SDK_NAME: iPhoneOS14.5.sdk
-  SDK_VERSION: "14.5"
-
 jobs:
-  build:
+  build-tipa:
+    name: Build UnjailTheos.tipa
     runs-on: macos-latest
 
     steps:
-      - name: Checkout project
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Theos toolchain
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Build and package TIPA
         run: |
-          set -euo pipefail
-          git clone --recursive --depth 1 \
-            https://github.com/theos/theos.git "$THEOS"
-          mkdir -p "$THEOS/sdks"
+          chmod +x Scripts/build-tipa.sh
+          ./Scripts/build-tipa.sh
 
-          # theos/sdks 以 Git 目录形式分发 SDK（无 .tar.xz），使用 sparse clone
-          git clone --depth 1 --filter=blob:none --sparse \
-            https://github.com/theos/sdks.git /tmp/theos-sdks
-          cd /tmp/theos-sdks
-          git sparse-checkout set "$SDK_NAME"
-          cp -a "$SDK_NAME" "$THEOS/sdks/"
-          rm -rf /tmp/theos-sdks
-
-          echo "$THEOS/bin" >> "$GITHUB_PATH"
-          echo "THEOS=$THEOS" >> "$GITHUB_ENV"
-          ls -la "$THEOS/sdks/$SDK_NAME"
-
-      - name: Detect architectures from Makefile
-        id: arch
+      - name: Verify TIPA
         run: |
-          set -euo pipefail
-          BUILD_ARM64=true
-          BUILD_ARM64E=true
-
-          if [ -f "Makefile" ]; then
-            ARCHS_VAL=$(grep -E '^ARCHS\s*[:?]?=' Makefile | head -1 | sed 's/^ARCHS\s*[:?]*=\s*//' || true)
-            if [ -n "$ARCHS_VAL" ]; then
-              echo "检测到 ARCHS=$ARCHS_VAL"
-              BUILD_ARM64=false
-              BUILD_ARM64E=false
-              echo "$ARCHS_VAL" | grep -qw "arm64" && BUILD_ARM64=true
-              echo "$ARCHS_VAL" | grep -qw "arm64e" && BUILD_ARM64E=true
-            fi
-          else
-            echo "未找到 Makefile，使用默认双架构"
-          fi
-
-          echo "build_arm64=$BUILD_ARM64" >> "$GITHUB_OUTPUT"
-          echo "build_arm64e=$BUILD_ARM64E" >> "$GITHUB_OUTPUT"
-
-      - name: Build iphoneos-arm64 (传统越狱)
-        if: steps.arch.outputs.build_arm64 == 'true' && hashFiles('Makefile') != ''
-        run: |
-          set -euo pipefail
-          export THEOS="$THEOS"
-          export PATH="$THEOS/bin:$PATH"
-          make clean 2>/dev/null || true
-          make package ARCHS=arm64 TARGET=iphone:clang:${SDK_VERSION}:${SDK_VERSION} \
-            THEOS_PACKAGE_SCHEME=deb
-          mkdir -p dist
-          find . -path "*/packages/*.deb" -exec cp -v {} dist/ \;
-
-      - name: Build iphoneos-arm64e (Rootless / 巨魔)
-        if: steps.arch.outputs.build_arm64e == 'true' && hashFiles('Makefile') != ''
-        run: |
-          set -euo pipefail
-          export THEOS="$THEOS"
-          export PATH="$THEOS/bin:$PATH"
-          make clean 2>/dev/null || true
-          make package ARCHS=arm64e TARGET=iphone:clang:${SDK_VERSION}:${SDK_VERSION} \
-            THEOS_PACKAGE_SCHEME=rootless DEB_ARCH=iphoneos-arm64e
-          mkdir -p dist
-          find . -path "*/packages/*.deb" -exec cp -v {} dist/ \;
-
-      - name: Skip build (no Tweak Makefile)
-        if: hashFiles('Makefile') == ''
-        run: |
-          echo "仓库中无 Tweak Makefile，跳过 make package。"
-          echo "请将 Tweak 项目推送到此仓库，或通过 workflow_dispatch 在含 Makefile 的分支上触发。"
-          mkdir -p dist
-          echo "no-tweak-project" > dist/README.txt
-
-      - name: Verify packages
-        if: hashFiles('Makefile') != ''
-        run: |
-          set -euo pipefail
-          if [ ! -d dist ] || [ -z "$(ls -A dist/*.deb 2>/dev/null)" ]; then
-            echo "错误: 未生成任何 .deb 包"
-            exit 1
-          fi
-          ls -lh dist/*.deb
+          test -f dist/UnjailTheos.tipa
+          unzip -l dist/UnjailTheos.tipa | head -20
+          ls -lh dist/UnjailTheos.tipa
 
       - name: Upload artifact
-        if: hashFiles('Makefile') != ''
         uses: actions/upload-artifact@v4
         with:
-          name: tweak-packages-${{ github.run_number }}
-          path: dist/*.deb
+          name: UnjailTheos-tipa-${{ github.run_number }}
+          path: dist/UnjailTheos.tipa
           if-no-files-found: error
 
-      - name: Create timestamped Release
-        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && hashFiles('Makefile') != ''
+      - name: Create Release with TIPA
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: build-${{ github.run_number }}-${{ github.run_attempt }}-${{ github.run_id }}
-          name: "UnjailTheos Build $(date +%Y-%m-%d_%H-%M-%S)"
+          tag_name: tipa-${{ github.run_number }}-${{ github.run_id }}
+          name: "UnjailTheos $(date +%Y-%m-%d_%H-%M-%S)"
           body: |
-            自动云端编译产物。
+            TrollStore 侧载包（.tipa）
 
-            - Run: #${{ github.run_number }} (attempt ${{ github.run_attempt }})
+            - Run: #${{ github.run_number }}
             - Commit: ${{ github.sha }}
-            - 架构: arm64=${{ steps.arch.outputs.build_arm64 }}, arm64e=${{ steps.arch.outputs.build_arm64e }}
-            - 触发: ${{ github.event_name }}
-          files: dist/*.deb
+            - 安装: TrollStore → Install → 选择此 .tipa
+          files: dist/UnjailTheos.tipa
           generate_release_notes: true
-          draft: false
-          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
